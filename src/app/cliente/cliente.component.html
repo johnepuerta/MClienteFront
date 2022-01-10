@@ -1,0 +1,45 @@
+{{isPermiteEscrita}}
+<p *ngIf="!carregando" style="width: 100%; text-align: right;cursor: pointer">
+    <span style="padding:10px;">
+        <button (click)="novo()" type="button" class="btn btn-primary button-action-table ml-2">Novo cliente</button>
+    </span>
+    <span style="padding:10px;">
+        <button (click)="sair()" type="button" class="btn btn-secundary button-action-table ml-2">Sair</button>
+    </span>
+</p>
+<mat-spinner *ngIf="carregando"></mat-spinner>
+<table *ngIf="!carregando" mat-table [dataSource]="dataSource" matSort matSortActive="codigo" matSortDisableClear
+    matSortDirection="asc" class="table">
+    <ng-container matColumnDef="codigo">
+        <th *matHeaderCellDef mat-sort-header class="cadastro-grupo-table-id">Código</th>
+        <td *matCellDef="let row" (click)="visualizar(row.id)" class="mat-table-link-td cadastro-grupo-table-id">
+            {{row.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+        <th *matHeaderCellDef mat-sort-header>Nome</th>
+        <td *matCellDef="let row" (click)="visualizar(row.id)" class="mat-table-link-td">{{row.nome}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+        <th *matHeaderCellDef mat-sort-header>CPF</th>
+        <td *matCellDef="let row" (click)="visualizar(row.id)" class="mat-table-link-td">{{row.cpf | cpf}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef>Ações</th>
+        <td *matCellDef="let row">
+            <button (click)="editar(row.id)" type="button" class="btn btn-primary button-action-table"
+                *ngIf="isPermiteEscrita">editar
+            </button>
+
+            <button (click)="excluir(row.id)" type="button" class="btn btn-primary button-action-table ml-2"
+                *ngIf="isPermiteEscrita">excluir
+            </button>
+
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

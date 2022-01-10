@@ -1,0 +1,82 @@
+<div class="box">
+    <div>
+        <mat-card>
+            <mat-card-title>CADASTRO DE CLIENTE</mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="formGroup" (ngSubmit)="submit()">
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Nome" formControlName="nome" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" mask="999.999.999-99" matInput placeholder="CPF" formControlName="cpf"
+                                required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="CEP" formControlName="cep" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Logradouro" formControlName="logradouro" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="bairro" formControlName="bairro" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Cidade" formControlName="cidade" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="UF" formControlName="uf" required>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Complemento" formControlName="complemento">
+                        </mat-form-field>
+                    </p>
+                    <div formArrayName="telefones">
+                        <div *ngFor="let fone of fonesControl; let i = index;">
+                            <div [formGroupName]="i">
+                                <select formControlName="tipo" name="select">
+                                    <option value="residencial">Residencial</option>
+                                    <option value="comercial">Comercial</option>
+                                    <option value="celular" selected>Celular</option>
+                                </select>
+                                <input formControlName="ddd" placeholder="DDD" type="number">
+                                <input formControlName="numero" placeholder="Número" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="addNewFone()" type="button">Adicionar telefone</button>
+                    <div formArrayName="emails">
+                        <div *ngFor="let email of emailsControl; let i = index;">
+                            <div [formGroupName]="i">
+                                <input formControlName="email" placeholder="E-mail" type="text" mail>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="addNewEmail()" type="button">Adicionar E-mail</button>
+                    <br /><br /><br />
+                    <div class="button">
+                        <button type="submit" mat-button>Salvar</button>
+                        <button type="button" (click)="dialogRef.close()" mat-button>Cancelar</button>
+                    </div>
+
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+{{formGroup.value|json}}
